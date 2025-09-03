@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_faculty.css') }}">
+    <script src="{{ url_for('static', filename='js/dashboard_faculty.js') }}" defer></script>
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            text-align: center;
+        }
+
+        /* Close button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Styling for the bell icon */
+        .notification-icon {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Staff Dashboard</h1>
+        <div class="user-profile">
+            <p class="username-dropdown">Notifications</p>
+            <span class="notification-icon" id="notificationIcon">🔔</span>
+        </div>
+    </header>
+
+    <div class="content">
+        <section id="staff-section">
+            <div class="action-container">
+                <!-- Submit Data Section -->
+                <div class="action">
+                    <h3>Submit Data</h3>
+                    <p>Enter your academic or other relevant information.</p>
+                    <a href="{{ url_for('submit_achievement') }}">
+                        <button id="submitDataButton">Submit Academic Achievement</button>
+                    </a>
+                </div>
+
+                <!-- Edit Submissions Section -->
+                <div class="action">
+                    <h3>Edit Submissions</h3>
+                    <p>Update or modify your previous data submissions.</p>
+                    <a href="{{ url_for('edit_submission') }}">
+                        <button id="editSubmissionButton">Edit Submission</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Logout Button -->
+            <div class="logout-button">
+                <a href="{{ url_for('logout') }}">
+                    <button>Logout</button>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal (Popup) for Deadline Notification -->
+    <div id="deadlineModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            {% if updated_deadline %}
+                <h2>Upcoming Deadline</h2>
+                <p><strong>Deadline:</strong> {{ updated_deadline }}</p>
+            {% else %}
+                <p>No updated deadline available.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        const modal = document.getElementById("deadlineModal");
+
+        // Get the button that opens the modal (bell icon)
+        const notificationIcon = document.getElementById('notificationIcon');
+
+        // Get the <span> element that closes the modal
+        const closeModal = document.getElementById("closeModal");
+
+        // When the user clicks on the bell icon, open the modal
+        notificationIcon.addEventListener('click', () => {
+            modal.style.display = "block";
+        });
+
+        // When the user clicks on <span> (x), close the modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = "none";
+        });
+
+        // When the user clicks anywhere outside the modal, close it
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>

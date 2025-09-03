@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Submission</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Edit Submission</h1>
+        <form id="editForm" method="POST" action="/update_submission" class="mt-4">
+            {% for key, value in record.items() %}
+                {% if key != '_id' and key != 'submitted' %}
+                    <div class="mb-3">
+                        <label for="{{ key }}" class="form-label">{{ key | capitalize }}</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="{{ key }}" 
+                            name="{{ key }}" 
+                            value="{{ value }}" 
+                            {% if key in ['username', 'category', 'status','submitted_at'] %}readonly{% endif %} 
+                            required>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <input type="hidden" name="collection" value="{{ collection }}">
+            <input type="hidden" name="id" value="{{ record['_id'] }}">
+            <button type="submit" class="btn btn-success">Save Changes</button>
+            <a href="/edit-submission" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approve Submissions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/approve-data.css') }}">
+    <script>
+        // Select all checkboxes in a specific category
+        function toggleSelectAll(category) {
+            const selectAll = document.getElementById(`selectAll-${category}`);
+            const checkboxes = document.querySelectorAll(`.entryCheckbox-${category}`);
+            checkboxes.forEach(checkbox => checkbox.checked = selectAll.checked);
+        }
+    </script>
+</head>
+<body>
+    <div class="report-container">
+        <h1>Approve Data Submissions</h1>
+
+        <!-- Flash Messages -->
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div id="flash-message" class="flash-message">
+                        {% for category, message in messages %}
+                            <p class="{{ category }}">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <!-- Dynamic Category Sections -->
+        {% for category, submissions in pending_submissions.items() %}
+            <div class="category-section">
+                <h2>{{ category.replace('_', ' ').title() }}</h2>
+                {% if submissions %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="selectAll-{{ category }}" onclick="toggleSelectAll('{{ category }}')"></th>
+                                {% if category == 'Academic Achievements' %}
+
+                                    <th>Username</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Department</th>
+                                    <th>Year</th>
+                                    <th>Action</th>
+                                {% elif category == 'Student Activities' %}
+                                
+                                    <th>Username</th>
+                                    <th>Event Title</th>
+                                    <th>Description</th>
+                                    <th>Year</th>
+                                    <th>Department</th>
+                                    <th>Action</th>
+                                {% elif category == 'Research Publications' %}
+                                    <th>Username</th>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Department</th>
+                                    <th>Summary</th>
+                                    <th>Action</th>
+                                {% elif category == 'Alumni Achievements' %}
+                                    <th>Username</th>
+                                    <th>Name</th>
+                                    
+                                    <th>Achievement Title</th>
+                                    <th>Details</th>
+                                    <th>Year</th>
+                                    <th>Department</th>
+                                    <th>Action</th>
+                                {% elif category == 'Future Goals' %}
+                                    <th>Username</th>
+                                    <th>Department</th>
+                                    <th>Goal Title</th>
+                                    <th>Description</th>
+                                    <th>Target Date</th>
+                                    <th>Action</th>
+                               
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for submission in submissions %}
+                                <tr id="{{ submission._id }}">
+                                    <td><input type="checkbox" class="entryCheckbox-{{ category }}" data-entry-id="{{ submission._id }}"></td>
+                                    {% if category == 'Academic Achievements' %}
+                                        <td>{{ submission.username }}</td>
+                                        <td>{{ submission.title }}</td>
+                                        <td>{{ submission.description }}</td>
+                                        <td>{{ submission.department }}</td>
+                                        <td>{{ submission.year }}</td>
+                                    {% elif category == 'Student Activities' %}
+                                        <td>{{ submission.username }}</td>
+                                        <td>{{ submission.event_title }}</td>
+                                        <td>{{ submission.description }}</td>
+                                        <td>{{ submission.year }}</td>
+                                        <td>{{ submission.department}}</td>
+                                        
+                                    {% elif category == 'Research Publications' %}
+                                        <td>{{ submission.username }}</td>
+                                        <td>{{ submission.research_title }}</td>
+                                        <td>{{ submission.author_name }}</td>
+                                        <td>{{ submission.department }}</td>
+                                        <td>{{ submission.research_summary }}</td>
+                                    {% elif category == 'Alumni Achievements' %}
+                                        <td>{{ submission.username }}</td>
+                                        <td>{{ submission.alumni_name }}</td>
+                                        <td>{{ submission.achievement_title }}</td>
+                                        <td>{{ submission.achievement_details }}</td>
+                                        <td>{{ submission.department }}</td>
+                                        <td>{{ submission.year }}</td>
+                                    {% elif category == 'Future Goals' %}
+                                        <td>{{ submission.username }}</td>
+                                        <td>{{ submission.department}}</td>
+                                        <td>{{ submission.goal_title }}</td>
+                                        <td>{{ submission.goal_description }}</td>
+                                        <td>{{ submission.target_date }}</td>
+                                        
+                                
+                                    {% endif %}
+                                    <td>
+                                        <a href="{{ url_for('approve_submission', submission_id=submission._id, category=category) }}" class="approve-button">Approve</a>
+                                        <a href="{{ url_for('reject_submission', submission_id=submission._id, category=category) }}" class="reject-button">Reject</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No {{ category.replace('_', ' ').title() }} pending approval.</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

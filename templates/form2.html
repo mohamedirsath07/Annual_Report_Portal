@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Activities Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_fix.css') }}">
+</head>
+<body>
+
+<ul class="flashes">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <li class="alert alert-{{ category }}">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </li>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</ul>
+
+<div class="content">
+    <section class="form-section">
+        <h2>Submit Student Activities</h2>
+        <form action="{{ url_for('student_activities') }}" method="POST" enctype="multipart/form-data">
+            <!-- Hidden category and status input -->
+            <input type="hidden" name="category" value="Student Activities">
+            <input type="hidden" name="status" value="pending">
+
+            <div class="form-group">
+                <label for="title">Event Title</label>
+                <input type="text" id="title" name="title" placeholder="Enter event title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" placeholder="Provide details of the event" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="year">Year</label>
+                <input type="number" id="year" name="year" placeholder="Enter the year" required>
+            </div>
+
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" name="department" placeholder="Enter department" required>
+            </div>
+
+            <div class="form-group">
+                <label for="date_time">Date and Time</label>
+                <input type="datetime-local" id="date_time" name="date_time" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">Submit</button>
+            </div>
+        </form>
+    </section>
+</div>
+
+<script>
+    // Automatically hide flash messages after 5 seconds
+    setTimeout(() => {
+        const flashes = document.querySelector('.flashes');
+        if (flashes) {
+            flashes.style.display = 'none';
+        }
+    }, 5000);
+
+    // Force reload on back button
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+</script>
+
+</body>
+</html>

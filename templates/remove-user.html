@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove User</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/remove-user.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Remove User</h2>
+
+        <!-- Flash Messages -->
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div id="flash-message" class="flash-message">
+                        {% for category, message in messages %}
+                            <p class="{{ category }}">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <form id="removeUserForm" method="POST" action="{{ url_for('remove_user') }}" onsubmit="return confirmRemoval()">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="email" placeholder="Enter email/username" required>
+
+            <button type="submit">Remove User</button>
+        </form>
+    </div>
+
+    <script>
+        // Confirmation dialog for removal
+        function confirmRemoval() {
+            return confirm("Are you sure you want to remove this user?");
+        }
+    </script>
+</body>
+</html>

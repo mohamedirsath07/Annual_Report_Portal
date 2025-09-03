@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Forms</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/faculty_related_form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_fix.css') }}">
+</head>
+<body>
+<header class="header">
+    <h1>Faculty Forms</h1>
+</header>
+<ul class="flashes">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <li class="alert alert-{{ category }}">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </li>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</ul>
+<nav>
+    <ul>
+        <li><a href="{{ url_for('academic_achievements') }}">Academic Achievements Form</a></li>
+        <li><a href="{{ url_for('student_activities') }}">Student Activities Form</a></li>
+        <li><a href="{{ url_for('research_publication') }}">Research and Publications Form</a></li>
+        <li><a href="{{ url_for('alumni_achievement') }}">Alumni Achievements Form</a></li>
+        <li><a href="{{ url_for('future_goals') }}">Future Goals or Department Plans Form</a></li>
+        <li><a href="{{ url_for('feedback') }}">Feedback or Comments Form (for internal use)</a></li>
+    </ul>
+</nav>
+<script>
+    // Automatically hide flash messages after 5 seconds
+    setTimeout(() => {
+        const flashes = document.querySelector('.flashes');
+        if (flashes) {
+            flashes.style.display = 'none';
+        }
+    }, 5000);
+
+    // Force reload on back button
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+</script>
+</body>
+</html>

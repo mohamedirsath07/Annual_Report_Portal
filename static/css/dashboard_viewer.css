@@ -1,0 +1,150 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+}
+
+/* Header Styling */
+.header {
+    background-color: #003366; /* Green theme */
+    color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.notification-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.header .notification-icon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+/* Content Styling */
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 20px;
+}
+
+/* Viewer Section Styling */
+#viewer-section {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 500px;
+    text-align: center;
+}
+
+#viewer-section .action {
+    margin: 20px 0;
+}
+
+#viewer-section h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#viewer-section p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+#viewer-section .btn {
+    background-color: #003366;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-decoration: none; /* Ensures link-style button appearance */
+    display: inline-block;
+}
+
+#viewer-section .btn:hover {
+    background-color: #002244;
+}
+
+#viewer-section .btn:active {
+    background-color: #002244;
+    transform: translateY(0);
+}
+
+/* Logout Button Styling */
+.logout-button {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.logout-button .btn {
+    padding: 12px 30px;
+    background-color: #ff4d4d;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-decoration: none; /* Ensures link-style button appearance */
+}
+
+.logout-button .btn:hover {
+    background-color: #d93636;
+    transform: scale(1.05);
+}
+
+.logout-button .btn:active {
+    background-color: #002244;
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #viewer-section {
+        width: 90%;
+    }
+
+    .logout-button .btn {
+        width: 90%;
+    }
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_admin.css') }}">
+    <script src="{{ url_for('static', filename='js/dashboard_admin.js') }}"></script>
+</head>
+<body>
+<header class="header">
+    <h1>Admin Dashboard</h1>
+    <div class="user-profile">
+        <p class="username-dropdown">Notifications</p>
+        <!-- Notification Icon, clicking it will show notifications -->
+        <span class="notification-icon" id="notificationBell">🔔</span>
+    </div>
+</header>
+
+<!-- Flash Messages -->
+<div class="flash-messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="flash-message" class="flash-message">
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<!-- Notifications Dropdown -->
+<div id="notificationDropdown" class="notification-dropdown" style="display: none;">
+    <h3>Recent Notifications</h3>
+    <ul id="notificationList">
+        <!-- Notifications will be populated here dynamically -->
+        <li>No notifications available.</li>
+    </ul>
+    <button onclick="clearNotifications()">Clear Notifications</button>
+</div>
+
+<div class="content">
+    <section id="admin-section">
+        <!-- Actions to manage different tasks -->
+        <div class="action-container">
+            <div class="action">
+                <h3>Add/Remove Users</h3>
+                <p>Manage user accounts for the institute portal.</p>
+                <button onclick="window.location.href='{{ url_for('add_user') }}'">Add User</button>
+                <button class="secondary" onclick="window.location.href='{{ url_for('remove_user') }}'">Remove User</button>
+            </div>
+            <div class="action">
+                <h3>Edit Submissions</h3>
+                <p>Update or modify your previous data submissions.</p>
+                <button onclick="window.location.href='{{ url_for('edit_submission') }}'">Edit Submission</button>
+            </div>
+            <div class="action">
+                <h3>Approve Data</h3>
+                <p>Review and approve submissions from faculty/staff.</p>
+                <button onclick="window.location.href='{{ url_for('approve_data') }}'">Approve Data</button>
+            </div>
+            <div class="action">
+                <h3>View Reports</h3>
+                <p>Read the generated annual reports.</p>
+                <button onclick="window.location.href='{{ url_for('view_report') }}'">View Report</button>
+            </div>
+            <div class="action">
+                <h3>Generate Reports</h3>
+                <p>Create annual reports based on submitted data.</p>
+                <button onclick="window.location.href='{{ url_for('generate_reports') }}'">Generate Reports</button>
+            </div>
+            <div class="action">
+                <h3>Download  Reports</h3>
+                <p>Download annual reports based on submitted data.</p>
+                <button onclick="window.location.href='{{ url_for('download_report') }}'">Download Reports</button>
+            </div>
+            <div class="action">
+                <h3>Settings</h3>
+                <p>Manage portal configurations and deadlines.</p>
+                <button onclick="window.location.href='{{ url_for('settings') }}'">Update Settings</button>
+            </div>
+        </div>
+        <div class="logout-section" style="text-align: center;">
+            <button class="logout-btn" onclick="window.location.href='{{ url_for('logout') }}'">Logout</button>
+        </div>
+    </section>
+</div>
+
+<script>
+    // Handle notification bell click to show or hide notifications
+    document.getElementById('notificationBell').addEventListener('click', function () {
+        const dropdown = document.getElementById('notificationDropdown');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Function to fetch notifications from the backend
+    function fetchNotifications() {
+        fetch('/get_notifications')  // Backend route to get notifications
+            .then(response => response.json())
+            .then(data => {
+                const notifications = data.notifications;
+                const notificationList = document.getElementById('notificationList');
+                notificationList.innerHTML = ''; // Clear existing notifications
+
+                if (notifications.length === 0) {
+                    notificationList.innerHTML = '<li>No new notifications.</li>';
+                } else {
+                    notifications.forEach(notification => {
+                        const li = document.createElement('li');
+                        li.textContent = `${notification.user_name} submitted ${notification.category} data on ${new Date(notification.timestamp).toLocaleString()}`;
+                        notificationList.appendChild(li);
+                    });
+                }
+            })
+            .catch(error => console.error('Error fetching notifications:', error));
+    }
+
+    // Function to clear notifications
+    function clearNotifications() {
+        fetch('/clear_notifications', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                alert('All notifications cleared!');
+                document.getElementById('notificationList').innerHTML = '<li>No new notifications.</li>'; // Clear the UI list
+            })
+            .catch(error => console.error('Error clearing notifications:', error));
+    }
+
+    // Fetch notifications on page load
+    fetchNotifications();
+</script>
+
+</body>
+</html>

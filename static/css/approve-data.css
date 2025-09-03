@@ -1,0 +1,175 @@
+/* General Reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9; /* Light background */
+    color: #333; /* Dark text for contrast */
+}
+
+/* Container Styling */
+.report-container {
+    max-width: 90%;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #e8f0ff; /* Light blue background */
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Title Styling */
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333; /* Dark green title color */
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+/* Flash Messages */
+.flash-messages {
+    margin-bottom: 20px;
+}
+
+.flash-message p {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.flash-message .success {
+    background-color: #4CAF50; /* Green for success messages */
+    color: white;
+}
+
+.flash-message .error {
+    background-color: #ff4d4d; /* Red for error messages */
+    color: white;
+}
+
+/* Category Section Styling */
+.category-section {
+    margin-bottom: 30px;
+}
+
+.category-section h2 {
+    font-size: 1.8rem;
+    color: #333; /* Dark green for category headers */
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead th {
+    background-color: #003366; /* Dark blue header for table */
+    color: #fff;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+}
+
+tbody td {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+}
+
+/* Select Checkbox */
+input[type="checkbox"] {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+/* Buttons in Action Column */
+a.approve-button, a.reject-button {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-right: 5px;
+}
+
+a.approve-button {
+    background-color: #4CAF50; /* Green for approve button */
+}
+
+a.approve-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+a.reject-button {
+    background-color: #c50b0b; /* Red for reject button */
+}
+
+a.reject-button:hover {
+    background-color: #a00a0a; /* Darker red on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .report-container {
+        max-width: 95%;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tbody tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 10px;
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #006400; /* Dark green for labels */
+        margin-right: 10px;
+        text-transform: capitalize;
+    }
+
+    a.approve-button,
+    a.reject-button {
+        margin-bottom: 5px;
+    }
+}

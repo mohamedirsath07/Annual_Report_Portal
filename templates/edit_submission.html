@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Data</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_fix.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Submitted Data</h1>
+        <ul class="flashes">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <li class="alert alert-{{ category }}">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </ul>
+
+        <!-- Academic Achievements -->
+        <section id="academic-achievements" class="mb-5">
+            <h2>Academic Achievements</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Department</th>
+                        <th>Date</th>
+                        <th>Submitted At</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for achievement in academic_achievements %}
+                    <tr>
+                        <td>{{ achievement.title }}</td>
+                        <td>{{ achievement.description }}</td>
+                        <td>{{ achievement.department }}</td>
+                        <td>{{ achievement.date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ achievement.submitted_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ achievement.status }}</td>
+                        <td>
+                            <a href="/edit/academic_achievements/{{ achievement._id }}" class="btn btn-primary btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Student Activities -->
+        <section id="student-activities" class="mb-5">
+            <h2>Student Activities</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Event Title</th>
+                        <th>Description</th>
+                        <th>Date & Time</th>
+                        <th>Year</th>
+                        <th>Department</th>
+                        <th>Submitted At</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activity in student_activities %}
+                    <tr>
+                        <td>{{ activity.event_title }}</td>
+                        <td>{{ activity.description }}</td>
+                        <td>{{ activity.date_time }}</td>
+                        <td>{{ activity.year }}</td>
+                        <td>{{ activity.department }}</td>
+                        <td>{{ activity.submitted_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ activity.status }}</td>
+                        <td>
+                            <a href="/edit/student_activities/{{ activity._id }}" class="btn btn-primary btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Alumni Achievements -->
+        <section id="alumni-achievements" class="mb-5">
+            <h2>Alumni Achievements</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Alumni Name</th>
+                        <th>Graduation Year</th>
+                        <th>Achievement Title</th>
+                        <th>Achievement Details</th>
+                        <th>Year</th>
+                        <th>Department</th>
+                        <th>Submitted At</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for achievement in alumni_achievements %}
+                    <tr>
+                        <td>{{ achievement.alumni_name }}</td>
+                        <td>{{ achievement.graduation_year }}</td>
+                        <td>{{ achievement.achievement_title }}</td>
+                        <td>{{ achievement.achievement_details }}</td>
+                        <td>{{ achievement.year }}</td>
+                        <td>{{ achievement.department }}</td>
+                        <td>{{ achievement.submitted_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ achievement.status }}</td>
+                        <td>
+                            <a href="/edit/alumni_achievements/{{ achievement._id }}" class="btn btn-primary btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Research Publications -->
+        <section id="research-publications" class="mb-5">
+            <h2>Research Publications</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Research Title</th>
+                        <th>Author Name</th>
+                        <th>Publication Year</th>
+                        <th>Department</th>
+                        <th>Publication Date</th>
+                        <th>Research Summary</th>
+                        <th>Submitted At</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for publication in research_publications %}
+                    <tr>
+                        <td>{{ publication.title }}</td>
+                        <td>{{ publication.authors }}</td>
+                        <td>{{ publication.journal_conference }}</td>
+                        <td>{{ publication.publication_year }}</td>
+                        <td>{{ publication.department }}</td>
+                        <td>{{ publication.submitted_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ publication.status }}</td>
+                        <td>
+                            <a href="/edit/research_publications/{{ publication._id }}" class="btn btn-primary btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Future Goals -->
+        <section id="future-goals" class="mb-5">
+            <h2>Future Goals</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Department Name</th>
+                        <th>Goal Title</th>
+                        <th>Goal Description</th>
+                        <th>Target Date</th>
+                        <th>Year</th>
+                        <th>Department</th>
+                        <th>Submitted At</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for goal in future_goals %}
+                    <tr>
+                        <td>{{ goal.department_name }}</td>
+                        <td>{{ goal.goal_title }}</td>
+                        <td>{{ goal.goal_description }}</td>
+                        <td>{{ goal.target_date }}</td>
+                        <td>{{ goal.year }}</td>
+                        <td>{{ goal.department }}</td>
+                        <td>{{ goal.submitted_at }}</td>
+                        <td>{{ goal.status }}</td>
+                        <td>
+                            <a href="/edit/future_goals/{{ goal._id }}" class="btn btn-primary btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Faculty Achievements -->
+        <section id="faculty-achievements" class="mb-5">
+            <h2>Faculty Achievements</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Faculty Name</th>
+                        <th>Achievement Title</th>
+                        <th>Description</th>
+                        <th>Year</th>
+                        <th>Department</th>
+                        <th>Submitted At</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for achievement in faculty_achievements %}
+                    <tr>
+                        <td>{{ achievement.faculty_name }}</td>
+                        <td>{{ achievement.achievement_title }}</td>
+                        <td>{{ achievement.description }}</td>
+                        <td>{{ achievement.year }}</td>
+                        <td>{{ achievement.department }}</td>
+                        <td>{{ achievement.submitted_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ achievement.status }}</td>
+                        <td>
+                            <a href="/edit/faculty_achievements/{{ achievement._id }}" class="btn btn-primary btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Workshops and Seminars -->
+        <section id="workshops-seminars" class="mb-5">
+            <h2>Workshops and Seminars</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Event Title</th>
+                        <th>Organizer</th>
+                        <th>Date</th>
+                        <th>Year</th>
+                        <th>Department</th>
+                        <th>Submitted At</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in workshops_seminars %}
+                    <tr>
+                        <td>{{ event.event_title }}</td>
+                        <td>{{ event.organizer }}</td>
+                        <td>{{ event.date }}</td>
+                        <td>{{ event.year }}</td>
+                        <td>{{ event.department }}</td>
+                        <td>{{ event.submitted_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ event.status }}</td>
+                        <td>
+                            <a href="/edit/workshops_seminars/{{ event._id }}" class="btn btn-primary btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        <a href="/dashboard/faculty" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+    <script>
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+        document.querySelectorAll('.close').forEach(function(button) {
+            button.addEventListener('click', function() {
+                this.parentElement.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

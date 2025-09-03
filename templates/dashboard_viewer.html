@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_viewer.css') }}">
+</head>
+<body>
+
+<header class="header">
+    <h1>Student Dashboard</h1>
+    <div class="user-profile">
+        <p class="username-dropdown">Notifications</p>
+        <span class="notification-icon">🔔</span>
+    </div>
+</header>
+
+<div class="content">
+    <section id="viewer-section">
+        <div class="action">
+            <h3>View Reports</h3>
+            <p>Read the generated annual reports.</p>
+            <!-- Redirect to the Flask route for viewing reports -->
+            <a href="{{ url_for('view_report') }}" class="btn">View Report</a>
+        </div>
+    </section>
+
+    <!-- Logout Button -->
+    <div class="logout-button" style="text-align: center; margin-top: 20px;">
+        <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Annual Report</title>
+    <link rel="stylesheet" href="/static/css/generate-report.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_fix.css') }}">
+</head>
+<body>
+    <div class="report-container">
+        <h2>Generate Annual Report</h2>
+        <form method="POST" action="{{ url_for('generate_reports') }}">
+            <div class="form-group">
+                <label for="categorySelect">Select Category:</label>
+                <select name="category" id="categorySelect" required>
+                    <option value="all">All Categories</option>
+                    <option value="academic_achievements">Academic Achievements</option>
+                    <option value="research_publications">Research Publications</option>
+                    <option value="student_activities">Student Activities</option>
+                    <option value="alumni_achievements">Alumni Achievements</option>
+                    <option value="faculty_achievements">Faculty Achievements</option>
+                    <option value="workshops_seminars">Workshops and Seminars</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="yearSelect">Select Year:</label>
+                <select name="year" id="yearSelect" required>
+                    {% for year in range(2024, 1999, -1) %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="departmentSelect">Select Department:</label>
+                <select name="department" id="departmentSelect" required>
+                    <option value="all">All Departments</option>
+                    <option value="AIML">AIML</option>
+                    <option value="AIDS">AIDS</option>
+                    <option value="CS">CS</option>
+                    <option value="IT">IT</option>
+                    <option value="CE">CE</option>
+                    <option value="ME">ME</option>
+                    <option value="AE">AE</option>
+                    <option value="EE">EE</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Generate Report</button>
+        </form>
+
+        <!-- Flash Messages -->
+        <ul class="flashes">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <li class="alert alert-{{ category }}">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </ul>
+
+        <!-- Download Link -->
+        {% if download_link %}
+            <div class="download-link">
+                <a href="{{ download_link }}" class="btn btn-primary">Download Report</a>
+            </div>
+        {% endif %}
+    </div>
+    <script>
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+        document.querySelectorAll('.close').forEach(function(button) {
+            button.addEventListener('click', function() {
+                this.parentElement.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

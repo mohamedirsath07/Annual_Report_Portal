@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Portal - Feedback/Comments Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_fix.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Feedback/Comments Form</h1>
+        <ul class="flashes">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <li class="alert alert-{{ category }}">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </ul>
+        <form id="feedbackForm" method="POST" action="{{ url_for('feedback') }}">
+            <label for="feedback">Feedback/Comments:</label>
+            <textarea id="feedback" name="feedback" placeholder="Enter your feedback or comments" rows="4" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <!-- Display submitted feedbacks -->
+        <!-- <div id="feedbackList">
+            <h2>Submitted Feedback</h2>
+            <ul>
+                {% if feedbacks %}
+                    {% for feedback in feedbacks %}
+                    <li>
+                        <strong>Name:</strong> {{ feedback['user_name'] }} <br>
+                        <strong>Feedback:</strong> {{ feedback['feedback'] }}
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <li>No feedback submitted yet.</li>
+                {% endif %}
+            </ul>
+        </div> -->
+    </div>
+    <script>
+        // Automatically hide flash messages after 5 seconds
+        setTimeout(() => {
+            const flashes = document.querySelector('.flashes');
+            if (flashes) {
+                flashes.style.display = 'none';
+            }
+        }, 5000);
+    
+        // Force reload on back button
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+    </script>
+</body>
+</html>

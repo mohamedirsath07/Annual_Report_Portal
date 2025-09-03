@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Reports</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view-report.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">University Reports</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('student_dashboard') }}">Home</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+
+    <div class="report-container">
+        <h1 class="main-title">View Reports</h1>
+
+        <!-- Academic Achievements Section -->
+        {% if academic_achievements %}
+        <section class="report-section">
+            <h2>Academic Achievements</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Course Department</th>
+                        <th>Date</th>
+                        <th>Visibility</th>
+                        <th>File</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for achievement in academic_achievements %}
+                    <tr>
+                        <td>{{ achievement.username }}</td>
+                        <td>{{ achievement.title }}</td>
+                        <td>{{ achievement.description }}</td>
+                        <td>{{ achievement.course_department }}</td>
+                        <td>{{ achievement.date }}</td>
+                        <td>{{ achievement.visibility }}</td>
+                        <td>
+                            {% if achievement.file_name %}
+                            <a href="{{ url_for('static', filename='uploads/' ~ achievement.file_name) }}" target="_blank" class="file-link">View File</a>
+                            {% else %}
+                            No File
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        {% else %}
+        <p class="no-data">No academic achievements available.</p>
+        {% endif %}
+
+        <!-- Student Activities Section -->
+        {% if student_activities %}
+        <section class="report-section">
+            <h2>Student Activities</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Event Title</th>
+                        <th>Description</th>
+                        <th>Date & Time</th>
+                        <th>Location</th>
+                        <th>Organizing Body</th>
+                        <th>Contact Info</th>
+                        <th>Poster</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activity in student_activities %}
+                    <tr>
+                        <td>{{ activity.username }}</td>
+                        <td>{{ activity.event_title }}</td>
+                        <td>{{ activity.description }}</td>
+                        <td>{{ activity.date_time }}</td>
+                        <td>{{ activity.location }}</td>
+                        <td>{{ activity.organizing_body }}</td>
+                        <td>{{ activity.contact_info }}</td>
+                        <td>
+                            {% if activity.poster_path %}
+                            <a href="{{ url_for('static', filename=activity.poster_path) }}" target="_blank" class="file-link">View Poster</a>
+                            {% else %}
+                            No Poster
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        {% else %}
+        <p class="no-data">No student activities available.</p>
+        {% endif %}
+
+        <!-- Research Publications Section -->
+        {% if research_publications %}
+        <section class="report-section">
+            <h2>Research Publications</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Publication Date</th>
+                        <th>Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for publication in research_publications %}
+                    <tr>
+                        <td>{{ publication.username }}</td>
+                        <td>{{ publication.research_title }}</td>
+                        <td>{{ publication.author_name }}</td>
+                        <td>{{ publication.publication_date }}</td>
+                        <td>{{ publication.research_summary }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        {% else %}
+        <p class="no-data">No research publications available.</p>
+        {% endif %}
+
+        <!-- Alumni Achievements Section -->
+        {% if alumni_achievements %}
+        <section class="report-section">
+            <h2>Alumni Achievements</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Graduation Year</th>
+                        <th>Achievement Title</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alumni in alumni_achievements %}
+                    <tr>
+                        <td>{{ alumni.username }}</td>
+                        <td>{{ alumni.alumni_name }}</td>
+                        <td>{{ alumni.graduation_year }}</td>
+                        <td>{{ alumni.achievement_title }}</td>
+                        <td>{{ alumni.achievement_details }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        {% else %}
+        <p class="no-data">No alumni achievements available.</p>
+        {% endif %}
+
+        <!-- Future Goals Section -->
+        {% if future_goals %}
+        <section class="report-section">
+            <h2>Future Goals</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Department Name</th>
+                        <th>Goal Title</th>
+                        <th>Description</th>
+                        <th>Target Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for goal in future_goals %}
+                    <tr>
+                        <td>{{ goal.username }}</td>
+                        <td>{{ goal.department_name }}</td>
+                        <td>{{ goal.goal_title }}</td>
+                        <td>{{ goal.goal_description }}</td>
+                        <td>{{ goal.target_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        {% else %}
+        <p class="no-data">No future goals available.</p>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; University Reports. All rights reserved.</p>
+    </footer>
+</body>
+</html>

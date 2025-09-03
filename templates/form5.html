@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Portal - Future Goals & Department Plans Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_fix.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Future Goals & Department Plans Form</h1>
+        <ul class="flashes">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <li class="alert alert-{{ category }}">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </ul>
+        <form id="goalsForm" method="POST" action="{{ url_for('future_goals') }}">
+            <!-- Department Name Input -->
+            <label for="departmentName">Department Name:</label>
+            <input type="text" id="departmentName" name="departmentName" placeholder="Enter department name" required>
+
+            <!-- Goal Title Input -->
+            <label for="goalTitle">Goal Title:</label>
+            <input type="text" id="goalTitle" name="goalTitle" placeholder="Enter goal title" required>
+
+            <!-- Goal Description Textarea -->
+            <label for="goalDescription">Description of Plan/Goal:</label>
+            <textarea id="goalDescription" name="goalDescription" placeholder="Enter detailed description of the plan or goal" rows="4" required></textarea>
+
+            <!-- Target Date Input -->
+            <label for="targetDate">Target Date for Completion:</label>
+            <input type="date" id="targetDate" name="targetDate" required>
+
+            <!-- Year Input -->
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" placeholder="Enter the year" min="2000" max="2100" required>
+
+            <!-- Department Input -->
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department" placeholder="Enter department" required>
+
+            <!-- Hidden Category Field -->
+            <input type="hidden" id="category" name="category" value="Future Goals & Department Plans">
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+
+        <!-- Display Submitted Goals -->
+        <!-- <div id="goalList">
+            <h2>Submitted Goals</h2>
+            <ul>
+                {% if goals %}
+                    {% for goal in goals %}
+                    <li>
+                        <strong>Department:</strong> {{ goal['department_name'] }} <br>
+                        <strong>Year:</strong> {{ goal['year'] }} <br>
+                        <strong>Goal Title:</strong> {{ goal['goal_title'] }} <br>
+                        <strong>Description:</strong> {{ goal['goal_description'] }} <br>
+                        <strong>Target Date:</strong> {{ goal['target_date'] }}
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <li>No goals submitted yet.</li>
+                {% endif %}
+            </ul>
+        </div> -->
+    </div>
+    <script>
+        // Automatically hide flash messages after 5 seconds
+        setTimeout(() => {
+            const flashes = document.querySelector('.flashes');
+            if (flashes) {
+                flashes.style.display = 'none';
+            }
+        }, 5000);
+    
+        // Force reload on back button
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Portal - Research and Publication Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_fix.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Research and Publication Form</h1>
+        
+        <ul class="flashes">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <li class="alert alert-{{ category }}">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </ul>
+
+        <!-- Form action points to Flask route -->
+        <form id="publicationForm" method="POST" action="{{ url_for('research_publication') }}">
+            <!-- Hidden category and status fields -->
+            <input type="hidden" name="category" value="Research and Publication">
+            <input type="hidden" name="status" value="pending"> <!-- Hidden status field -->
+
+            <label for="researchTitle">Research Title:</label>
+            <input type="text" id="researchTitle" name="researchTitle" placeholder="Enter research title" required>
+
+            <label for="authorName">Author Name:</label>
+            <input type="text" id="authorName" name="authorName" placeholder="Enter author name" required>
+
+            <label for="publicationDate">Publication Date:</label>
+            <input type="date" id="publicationDate" name="publicationDate" required>
+
+            <!-- New Department field -->
+            <label for="department">Department:</label>
+            
+            <input type="text" id="department" name="department" placeholder="Enter department" required>
+
+
+            <label for="researchSummary">Research Summary:</label>
+            <textarea id="researchSummary" name="researchSummary" placeholder="Enter research summary" rows="4" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+        
+        <!-- Section for listing submitted publications -->
+        <!-- <div id="publicationList">
+            <h2>Submitted Publications</h2>
+            <ul>
+                {% if publications %}
+                    {% for publication in publications %}
+                    <li>
+                        <strong>Title:</strong> {{ publication['research_title'] }} <br>
+                        <strong>Author:</strong> {{ publication['author_name'] }} <br>
+                        <strong>Year:</strong> {{ publication['year'] }} <br>
+                        <strong>Department:</strong> {{ publication['department'] }} <br>
+                        <strong>Summary:</strong> {{ publication['research_summary'] }} <br>
+                        <strong>Status:</strong> {{ publication['status'] }} 
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <li>No publications submitted yet.</li>
+                {% endif %}
+            </ul>
+        </div> -->
+    </div>
+    <script>
+        // Automatically hide flash messages after 5 seconds
+        setTimeout(() => {
+            const flashes = document.querySelector('.flashes');
+            if (flashes) {
+                flashes.style.display = 'none';
+            }
+        }, 5000);
+    
+        // Force reload on back button
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+    </script>
+</body>
+</html>

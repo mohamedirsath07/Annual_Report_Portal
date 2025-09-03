@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Annual Report</title>
+    <link rel="stylesheet" href="/static/css/download-report.css">
+</head>
+<body>
+    <div class="report-container">
+        <h2>Download Annual Report</h2>
+        <form method="GET" action="{{ url_for('download_report') }}">
+            <div class="form-group">
+                <label for="categorySelect">Select Category:</label>
+                <select name="category" id="categorySelect" required>
+                    <option value="academic achievements">Academic Achievements</option>
+                    <option value="research publications">Research Publications</option>
+                    <option value="student activities">Student Activities</option>
+                    <option value="alumni achievements">Alumni Achievements</option>
+                    <option value="future_goals">Future Goals</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="yearSelect">Select Year:</label>
+                <select name="year" id="yearSelect" required>
+                    {% for year in range(2024, 1999, -1) %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="departmentSelect">Select Department:</label>
+                <select name="department" id="departmentSelect" required>
+                    <option value="AIML">AIML</option>
+                    <option value="AIDS">AIDS</option>
+                    <option value="CS">CS</option>
+                    <option value="IT">IT</option>
+                    <option value="CE">CE</option>
+                    <option value="ME">ME</option>
+                    <option value="AE">AE</option>
+                    <option value="EE">EE</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Download Report</button>
+        </form>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

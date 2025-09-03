@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Notifications</title>
+    <link rel="stylesheet" href="/static/css/notifications_admin.css">
+</head>
+<body>
+
+<!-- Bell Icon -->
+<div class="bell-icon">
+    <button id="bellButton" onclick="toggleNotificationPopup()">
+        🔔
+    </button>
+</div>
+
+<!-- Notification Popup (Initially Hidden) -->
+<div id="notificationPopup" class="notification-popup">
+    <div class="popup-header">
+        <h2>Notifications</h2>
+        <button class="close-popup" onclick="toggleNotificationPopup()">✖</button>
+    </div>
+    <ul id="notificationList">
+        <!-- Notifications will be populated here dynamically -->
+        {% if notifications %}
+            {% for notification in notifications %}
+                <li class="notification {{ notification['status'] }}">
+                    <div class="notification-header">
+                        <strong>{{ notification['user_name'] }}</strong> has submitted a form in <strong>{{ notification['category'] }}</strong>
+                    </div>
+                    <div class="notification-body">
+                        <p><em>Submitted Data:</em> {{ notification['submitted_data'] }}</p>
+                        <p><small><em>Timestamp:</em> {{ notification['timestamp'] }}</small></p>
+                    </div>
+                    <div class="notification-footer">
+                        <a href="{{ url_for('view_submission', submission_id=notification['_id']) }}">View Submission</a>
+                    </div>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>No new notifications.</p>
+        {% endif %}
+    </ul>
+    <div class="clear-button">
+        <form method="POST" action="{{ url_for('clear_all_notifications') }}">
+            <button type="submit" class="clear-button">Clear All Notifications</button>
+        </form>
+    </div>
+</div>
+
+<script src="/static/js/notifications_admin.js"></script>
+<script>
+// Toggle the visibility of the notification popup
+function toggleNotificationPopup() {
+    var popup = document.getElementById('notificationPopup');
+    popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+</body>
+</html>

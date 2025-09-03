@@ -1,0 +1,26 @@
+/* static/css/flash_fix.css */
+
+/* Remove background and border from flash messages */
+.flash-success, .flash-info, .flash-warning, .flash-error, .alert {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    color: inherit !important; /* Use the default text color */
+}
+
+/* Ensure the close button is visible and styled simply */
+.flash-success .close, .alert .close {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: 0.5;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.flash-success .close:hover {
+    opacity: 1;
+}

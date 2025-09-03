@@ -1,0 +1,144 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; /* Light background */
+    color: #333; /* Dark text for contrast */
+}
+
+header {
+    background-color: #003366; /* Dark blue header background */
+    padding: 15px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.navbar .logo {
+    font-size: 1.8rem;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar .nav-links {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.navbar .nav-links a:hover {
+    text-decoration: underline;
+}
+
+.report-container {
+    max-width: 90%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #e8f0ff; /* Light blue background */
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.main-title {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #333; /* Dark green for title */
+    margin-bottom: 30px;
+}
+
+.report-section {
+    margin-bottom: 40px;
+}
+
+.report-section h2 {
+    font-size: 1.8rem;
+    color: #333; /* Dark green for section titles */
+    margin-bottom: 20px;
+    border-bottom: 2px solid #006400; /* Dark green border */
+    padding-bottom: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead th {
+    background-color: #003366; /* Dark blue background for table headers */
+    color: #fff;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+tbody td {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.file-link {
+    color: #006400; /* Dark green for file links */
+    text-decoration: none;
+}
+
+.file-link:hover {
+    text-decoration: underline;
+}
+
+.no-data {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #777;
+    font-style: italic;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333; /* Dark footer background */
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .report-container {
+        padding: 15px;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    table, th, td {
+        font-size: 0.9rem;
+    }
+
+    .file-link {
+        font-size: 0.9rem;
+    }
+}

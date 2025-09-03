@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Portal - Alumni Achievement Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_fix.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Alumni Achievement Form</h1>
+        
+        <ul class="flashes">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <li class="alert alert-{{ category }}">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </ul>
+
+        <!-- Form action points to Flask route -->
+        <form id="achievementForm" method="POST" action="{{ url_for('alumni_achievement') }}">
+            <!-- Hidden Category and Status Fields -->
+            <input type="hidden" id="category" name="category" value="Alumni Achievement">
+            <input type="hidden" id="status" name="status" value="pending"> <!-- Default status -->
+
+            <label for="alumniName">Alumni Name:</label>
+            <input type="text" id="alumniName" name="alumniName" placeholder="Enter alumni name" required>
+
+            <label for="graduationYear">Graduation Year:</label>
+            <input type="number" id="graduationYear" name="graduationYear" placeholder="Enter graduation year" min="1900" max="{{ current_year }}" required>
+
+            <label for="achievementTitle">Achievement Title:</label>
+            <input type="text" id="achievementTitle" name="achievementTitle" placeholder="Enter achievement title" required>
+
+            <label for="achievementDetails">Details of Achievement:</label>
+            <textarea id="achievementDetails" name="achievementDetails" placeholder="Enter details of the achievement" rows="4" required></textarea>
+
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" placeholder="Enter year (e.g., 2024)" min="1900" max="2100" required>
+
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department" placeholder="Enter department name" required>
+
+            <button type="submit">Submit</button>
+        </form>
+        
+        <!-- Display submitted achievements -->
+        <!-- <div id="achievementList">
+            <h2>Submitted Alumni Achievements</h2>
+            <ul>
+                {% if achievements %}
+                    {% for achievement in achievements %}
+                    <li>
+                        <strong>Alumni Name:</strong> {{ achievement['alumni_name'] }} <br>
+                        <strong>Graduation Year:</strong> {{ achievement['graduation_year'] }} <br>
+                        <strong>Achievement Title:</strong> {{ achievement['achievement_title'] }} <br>
+                        <strong>Details:</strong> {{ achievement['achievement_details'] }} <br>
+                        <strong>Year:</strong> {{ achievement['year'] }} <br>
+                        <strong>Department:</strong> {{ achievement['department'] }} <br>
+                        <strong>Status:</strong> {{ achievement['status'] }} 
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <li>No achievements submitted yet.</li>
+                {% endif %}
+            </ul>
+        </div> -->
+    </div>
+    <script>
+        // Automatically hide flash messages after 5 seconds
+        setTimeout(() => {
+            const flashes = document.querySelector('.flashes');
+            if (flashes) {
+                flashes.style.display = 'none';
+            }
+        }, 5000);
+    
+        // Force reload on back button
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+    </script>
+</body>
+</html>

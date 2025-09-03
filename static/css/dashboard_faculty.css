@@ -1,0 +1,253 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Body Styling */
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+}
+
+/* Header Styling */
+.header {
+    background-color: #003366; /* Dark blue theme */
+    color: white;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.notification-icon {
+    font-size: 1.5rem;
+    position: relative;
+    cursor: pointer;
+    color: white;
+}
+
+/* Notification Bell Badge */
+.notification-icon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background-color: #ff4d4d;
+    border-radius: 50%;
+}
+
+/* Dropdown Styling */
+.user-dropdown {
+    position: relative;
+}
+
+.user-dropdown button {
+    background-color: transparent;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.user-dropdown-content a {
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.user-dropdown-content a:hover {
+    background-color: #e8f0ff;
+}
+
+.user-dropdown:hover .user-dropdown-content {
+    display: block;
+}
+
+/* Main Content */
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 20px;
+}
+
+/* Action Container */
+.action-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+}
+
+/* Action Card */
+.action {
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    flex: 1 1 calc(33.33% - 20px);
+    max-width: calc(33.33% - 20px);
+    transition: box-shadow 0.3s, background-color 0.3s;
+}
+
+.action:hover {
+    background-color: #e8f0ff;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.action h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.action p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.action button {
+    background-color: #003366;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.action button:hover {
+    background-color: #002244;
+}
+
+.action button:active {
+    transform: translateY(0);
+}
+
+/* Logout Section */
+.logout-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.logout-button button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #ff4d4d; /* Bright red */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-button button:hover {
+    background-color: #d93636; /* Darker red */
+}
+
+/* Modal (Popup) styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    text-align: center;
+}
+
+/* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Notification Icon styling */
+.notification-icon {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .action-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .action {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
