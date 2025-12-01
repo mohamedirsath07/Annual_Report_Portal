@@ -15,3 +15,4 @@ db = client[DB_NAME]
 users_collection = db.get_collection("users")
 reports_collection = db.get_collection("reports")
 events_collection = db.get_collection("events")
+achievements_collection = db.get_collection("achievements")

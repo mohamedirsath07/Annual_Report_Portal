@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { LogOut, LayoutDashboard, Users, FileText, Calendar, Menu } from 'lucide-react';
+import { LogOut, LayoutDashboard, Users, FileText } from 'lucide-react';
 
 const DashboardLayout = ({ title, role, children }) => {
   const navigate = useNavigate();
@@ -21,8 +21,7 @@ const DashboardLayout = ({ title, role, children }) => {
     ];
     if (role === 'faculty') return [
       { name: 'Dashboard', icon: <LayoutDashboard size={20}/>, path: '/faculty' },
-      { name: 'My Data', icon: <FileText size={20}/>, path: '/faculty/data' },
-      { name: 'Events', icon: <Calendar size={20}/>, path: '/faculty/events' },
+      { name: 'Verify Data', icon: <FileText size={20}/>, path: '/faculty/verify' },
     ];
     return [
       { name: 'Dashboard', icon: <LayoutDashboard size={20}/>, path: '/student' },

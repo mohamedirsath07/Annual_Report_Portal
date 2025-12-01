@@ -1,17 +1,21 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Login from './pages/Login';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import ManageUsers from './pages/admin/ManageUsers';
 import ManageDepartments from './pages/admin/ManageDepartments';
 import ManageReports from './pages/admin/ManageReports';
 import FacultyDashboard from './pages/faculty/FacultyDashboard';
+import VerifyData from './pages/faculty/VerifyData';
+import StudentDashboard from './pages/student/StudentDashboard';
+import StudentAddAchievement from './pages/student/AddAchievement';
 
 // Simple Route Protection Component
 const ProtectedRoute = ({ children, allowedRole }) => {
   const token = localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
   
-  if (!token) return <Navigate to="/" />;
+  if (!token || !user) return <Navigate to="/" />;
   if (user.role !== allowedRole) return <Navigate to="/" />;
   
   return children;
@@ -20,6 +24,7 @@ const ProtectedRoute = ({ children, allowedRole }) => {
 function App() {
   return (
     <BrowserRouter>
+      <Toaster position="top-right" />
       <Routes>
         <Route path="/" element={<Login />} />
         
@@ -46,13 +51,28 @@ function App() {
         } />
 
         {/* Faculty Routes */}
-        <Route path="/faculty/*" element={
+        <Route path="/faculty" element={
           <ProtectedRoute allowedRole="faculty">
             <FacultyDashboard />
           </ProtectedRoute>
         } />
-        
-        {/* Add Student Route similarly */}
+        <Route path="/faculty/verify" element={
+          <ProtectedRoute allowedRole="faculty">
+            <VerifyData />
+          </ProtectedRoute>
+        } />
+
+        {/* Student Routes */}
+        <Route path="/student" element={
+          <ProtectedRoute allowedRole="student">
+            <StudentDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/student/achievements" element={
+          <ProtectedRoute allowedRole="student">
+            <StudentAddAchievement />
+          </ProtectedRoute>
+        } />
       </Routes>
     </BrowserRouter>
   );

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import DashboardLayout from '../../layouts/DashboardLayout';
-import { Users, FileText, CheckCircle, Clock } from 'lucide-react';
-import api from '../../api/axios';
+import { Users, FileText, Clock } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({ students: 0, faculty: 0, reports: 0, pending: 0 });
@@ -19,6 +19,13 @@ const AdminDashboard = () => {
     { title: 'Pending Approval', value: stats.pending, icon: <Clock className="text-orange-600"/>, color: 'bg-orange-50' },
   ];
 
+  const chartData = [
+    { name: 'CSE', achievements: 40, reports: 24 },
+    { name: 'ECE', achievements: 30, reports: 18 },
+    { name: 'Mech', achievements: 20, reports: 10 },
+    { name: 'Civil', achievements: 27, reports: 15 },
+  ];
+
   return (
     <DashboardLayout title="Admin Overview" role="admin">
       {/* Stats Grid */}
@@ -34,8 +41,25 @@ const AdminDashboard = () => {
         ))}
       </div>
 
+      <div className="mt-8 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+        <h3 className="text-lg font-bold mb-4">Department Performance</h3>
+        <div className="h-80 w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="achievements" fill="#3b82f6" name="Achievements" />
+              <Bar dataKey="reports" fill="#82ca9d" name="Reports Generated" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
       {/* Recent Activity Table (Placeholder) */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+      <div className="mt-8 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-4 border-b border-gray-100 font-bold">Recent Report Submissions</div>
         <table className="w-full text-left">
             <thead className="bg-gray-50 text-gray-500 text-sm">

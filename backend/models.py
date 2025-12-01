@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field
-from typing import Optional, List
+from typing import Optional, List, Literal
+from datetime import datetime
 from bson import ObjectId
 
 # Helper to handle MongoDB ObjectId
@@ -38,3 +39,30 @@ class UserResponse(BaseModel):
         allow_population_by_field_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
+
+
+class AchievementResponse(BaseModel):
+    id: str = Field(alias="_id")
+    title: str
+    description: str
+    category: str
+    event_date: str
+    department: Optional[str] = None
+    file_url: Optional[str] = None
+    student_id: str
+    student_name: str
+    status: Literal["pending", "approved", "rejected"]
+    reviewer_note: Optional[str] = None
+    reviewed_by: Optional[str] = None
+    created_at: datetime
+    reviewed_at: Optional[datetime] = None
+
+    class Config:
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str, datetime: lambda v: v.isoformat()}
+
+
+class AchievementStatusUpdate(BaseModel):
+    status: Literal["approved", "rejected"]
+    reviewer_note: Optional[str] = None

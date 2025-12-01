@@ -99,3 +99,16 @@ To check if local MongoDB is running:
 ```powershell
 Get-Process -Name mongod
 ```
+
+---
+
+## Achievements API & File Uploads
+
+- Uploaded proofs are stored inside the backend `uploads/` folder and served statically at `http://<backend-host>/uploads/<fileName>`.
+- Keep `uploads/` out of version control (already listed in `.gitignore`). Ensure the folder exists on the server and has write permissions.
+- Endpoints (all require a valid `Authorization: Bearer <token>` header):
+   - `POST /api/achievements` — `multipart/form-data` payload with `title`, `description`, `category`, `event_date`, optional `department`, and optional `proof` file. Automatically ties the record to the authenticated student.
+   - `GET /api/achievements?mine=true` — students fetch their own submissions. Faculty/Admin can add `status=pending|approved|rejected` to filter across the department.
+   - `PATCH /api/achievements/{id}` — faculty/admin approve or reject a submission by sending `{ "status": "approved" | "rejected", "reviewer_note": "optional" }`.
+
+> 🔐 The backend now decodes JWT tokens via `get_current_user` to secure these routes, so make sure the frontend always sends the token (Axios interceptor already handles this).
