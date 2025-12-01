@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.env
+.venv/
+venv/
+.env.local
+backend/.env
+frontend/.env
+uploads/
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+dist/
+build/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.DS_Store
+Thumbs.db
